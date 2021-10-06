@@ -1,0 +1,19 @@
+# GPIO Pins
+PEDAL_SENSOR_PIN: 7
+START_STOP_BUTTON_PIN: 10
+LED_PIN: 8
+
+# Database config
+DB_FILE: exercise.db
+
+# Logging Setup
+LOG_LEVEL: INFO  # Use same level names as in Python logging package
+LOG_FILE: null
+LOG_TO_CONSOLE: True
+
+# Exercise parameters
+PEDALING_TIMEOUT: 3  # seconds; Assume pedaling has stopped if this amount of time has elapsed without a pedal event
+
+# App Config
+APP_HOST: localhost
+APP_UPDATE_INTERVAL: 2  # seconds
