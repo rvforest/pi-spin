@@ -7,8 +7,9 @@ import yaml
 def load_config():
     # Load default config
     print("Loading default configuration")
-    config_filename = ".smart_bike_conf.yaml"
-    with open(config_filename, "r") as f:
+    conf_dir = Path(__file__) / "conf"
+    config_file = conf_dir / "smart_bike_conf.yaml"
+    with open(config_fil, "r") as f:
         c = yaml.safe_load(f)
 
     # Load user config values
