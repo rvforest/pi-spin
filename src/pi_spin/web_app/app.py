@@ -9,9 +9,9 @@ import dash_daq as daq
 import plotly.express as px
 from dash.dependencies import Input, Output, State
 
-from spin.config import config
-from spin.database import Database, WORKOUT_END_COL, WORKOUT_PK_COL, PEDAL_TIME_COL
-from spin.web_app.data_processing import calculate_rpm, add_rest_periods, parse_dates
+from pi_spin.config import config
+from pi_spin.database import Database, WORKOUT_END_COL, WORKOUT_PK_COL, PEDAL_TIME_COL
+from pi_spin.web_app.data_processing import calculate_rpm, add_rest_periods, parse_dates
 
 logger = logging.getLogger(__name__)
 

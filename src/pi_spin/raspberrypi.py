@@ -5,7 +5,7 @@ from typing import Iterable
 
 import RPi.GPIO as GPIO
 
-from spin.config import config
+from pi_spin.config import config
 
 logger = logging.getLogger(__name__)
 
