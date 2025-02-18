@@ -2,7 +2,7 @@ import logging
 import sqlite3
 from typing import List, Tuple, Any, Optional
 
-from spin.config import config
+from pi_spin.config import config
 
 logger = logging.getLogger(__name__)
 

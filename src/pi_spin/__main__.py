@@ -1,9 +1,9 @@
 import logging
 from multiprocessing import Process
 
-from spin.config import config
-from spin.main import start_smart_bike
-from spin.web_app.app import app
+from pi_spin.config import config
+from pi_spin.main import start_smart_bike
+from pi_spin.web_app.app import app
 
 # Setup Logging
 handlers = []

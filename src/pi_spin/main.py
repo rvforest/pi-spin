@@ -1,9 +1,9 @@
 import logging
 
-from spin import raspberrypi
-from spin.database import db
-from spin.config import config
-from spin.workout import Workout
+from pi_spin import raspberrypi
+from pi_spin.database import db
+from pi_spin.config import config
+from pi_spin.workout import Workout
 
 logger = logging.getLogger(__name__)
 

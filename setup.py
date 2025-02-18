@@ -3,7 +3,7 @@ from distutils.core import setup
 setup(
     name="spin",
     version="0.0.0",
-    packages=["spin"],
+    packages=["pi_spin"],
     url="",
     license="MIT",
     author="rvforest",

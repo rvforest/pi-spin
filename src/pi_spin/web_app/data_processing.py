@@ -3,8 +3,8 @@ from typing import Iterable, Tuple
 
 import numpy as np
 
-from spin.config import config
-from spin.database import PEDAL_TIME_COL
+from pi_spin.config import config
+from pi_spin.database import PEDAL_TIME_COL
 
 
 def parse_date_string(date_string: str) -> datetime:

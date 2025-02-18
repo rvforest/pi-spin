@@ -1,9 +1,9 @@
 from datetime import datetime
 import logging
 
-from spin.database import db
-from spin.config import config
-from spin import raspberrypi
+from pi_spin.database import db
+from pi_spin.config import config
+from pi_spin import raspberrypi
 
 logger = logging.getLogger(__name__)
 
