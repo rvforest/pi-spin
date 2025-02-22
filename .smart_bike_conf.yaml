@@ -13,7 +13,3 @@ LOG_TO_CONSOLE: True
 
 # Exercise parameters
 PEDALING_TIMEOUT: 3  # seconds; Assume pedaling has stopped if this amount of time has elapsed without a pedal event
-
-# App Config
-APP_HOST: localhost
-APP_UPDATE_INTERVAL: 2  # seconds

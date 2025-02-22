@@ -3,7 +3,6 @@ from multiprocessing import Process
 
 from pi_spin.config import config
 from pi_spin.main import start_smart_bike
-from pi_spin.web_app.app import app
 
 # Setup Logging
 handlers = []
@@ -25,4 +24,3 @@ logging.debug(config)
 # Run
 pedal_logger = Process(target=start_smart_bike)
 pedal_logger.start()
-app.run_server(host=config["APP_HOST"])
