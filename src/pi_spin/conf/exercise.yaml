@@ -1,0 +1,2 @@
+# Exercise parameters
+pedaling_timeout: 3  # seconds; Assume pedaling has stopped if this amount of time has elapsed without a pedal event

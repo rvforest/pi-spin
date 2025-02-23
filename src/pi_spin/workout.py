@@ -1,9 +1,8 @@
 from datetime import datetime
 import logging
 
-from pi_spin.database import db
-from pi_spin.config import config
-from pi_spin import raspberrypi
+from pi_spin.database import Database
+from pi_spin.raspberrypi import RaspberryPi
 
 logger = logging.getLogger(__name__)
 
@@ -11,30 +10,32 @@ logger = logging.getLogger(__name__)
 class Workout:
     """Represents a workout session."""
 
-    def __init__(self):
-        last_id = db.get_last_workout_id()
-        self.id = last_id + 1
+    def __init__(self, db: Database, raspberrypi: RaspberryPi):
+        self.db = db
+        self.raspberrypi = raspberrypi
+
+        self.is_in_progress = False
+        self.id = db.get_last_workout_id() + 1
+
+    def start_workout(self):
         self.is_in_progress = True
-        raspberrypi.turn_on_led()
+        self.raspberrypi.turn_on_led()
         self.start_time = datetime.now()
-        db.add_workout_start("default")
+        self.db.add_workout_start("default")
 
     def log_pedal_strokes(self):
         """Log each pedal stroke into database"""
         logger.info("Workout has begun. Logging in progress.")
         while True:
-            event_channel = raspberrypi.wait_for_inputs(
-                [config["PEDAL_SENSOR_PIN"], config["START_STOP_BUTTON_PIN"]]
-            )
-            if event_channel == config["PEDAL_SENSOR_PIN"]:
-                db.add_pedal_entry(self.id)
+            event_channel = self.raspberrypi.wait_for_pedal_or_stop()
+            if event_channel == self.raspberrypi.pedal_sensor_pin:
+                self.db.add_pedal_entry(self.id)
             else:
-                self.end()
                 return
 
-    def end(self):
+    def end_workout(self):
         """End current workout session."""
         logger.info("Workout is complete.")
         self.is_in_progress = False
-        raspberrypi.turn_off_led()
-        db.add_workout_end(self.id)
+        self.raspberrypi.turn_off_led()
+        self.db.add_workout_end(self.id)

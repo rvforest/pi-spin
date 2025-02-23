@@ -2,7 +2,7 @@ import logging
 import sqlite3
 from typing import List, Tuple, Any, Optional
 
-from pi_spin.config import config
+from pi_spin.config import load_config
 
 logger = logging.getLogger(__name__)
 
@@ -17,12 +17,20 @@ PEDAL_TIME_COL = 2
 class Database:
     """Handles reading and writing from sqlite database"""
 
-    # SQLite datetime format string
-    dt_format = "%Y-%m-%d %H:%M:%f"
+    dt_format = ""
 
-    def __init__(self):
-        self.conn = sqlite3.connect(config["DB_FILE"], check_same_thread=False)
+    def __init__(self, db_file, dt_format, check_same_thread):
+        self.dt_format = dt_format
+        self.conn = sqlite3.connect(db_file, check_same_thread=check_same_thread)
         self._make_tables()
+
+    @classmethod
+    def from_config(
+        cls, config_name: str = "sqlite.yaml", config_pkg: str = "pi_spin.conf"
+    ):
+        config = load_config(config_name, config_pkg)
+        logger.debug(config)
+        return cls(**config)
 
     def execute_sql(self, sql: str) -> Tuple[List[Any], ColumnNames]:
         """Execute SQL statement then retrieve all results"""
@@ -54,8 +62,8 @@ class Database:
             CREATE TABLE IF NOT EXISTS WORKOUT (
                 id INTEGER PRIMARY KEY,
                 user TEXT NOT NULL,
-                begin DATETIME NOT NULL DEFAULT(STRFTIME('{Database.dt_format}', 'NOW', 'localtime')),
-                end DATETIME DEFAULT(STRFTIME('{Database.dt_format}', 'NOW', 'localtime'))
+                begin DATETIME NOT NULL DEFAULT(STRFTIME('{self.dt_format}', 'NOW', 'localtime')),
+                end DATETIME DEFAULT(STRFTIME('{self.dt_format}', 'NOW', 'localtime'))
             ); 
             """
         )
@@ -66,7 +74,7 @@ class Database:
             CREATE TABLE IF NOT EXISTS PEDALING (
                 id INTEGER PRIMARY KEY,
                 workout_id INTEGER NOT NULL,
-                pedal_time DATETIME NOT NULL DEFAULT(STRFTIME('{Database.dt_format}', 'NOW', 'localtime')),
+                pedal_time DATETIME NOT NULL DEFAULT(STRFTIME('{self.dt_format}', 'NOW', 'localtime')),
                 resistance REAL
             ); 
             """
@@ -128,6 +136,3 @@ class Database:
         return self.execute_sql(
             f"SELECT * FROM PEDALING WHERE workout_id = {workout_id} {time_filter}"
         )
-
-
-db = Database()
