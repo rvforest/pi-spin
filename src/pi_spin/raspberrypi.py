@@ -1,4 +1,5 @@
 """Functions for handling all input/output from Raspberry Pi"""
+
 import logging
 import time
 from typing import Iterable
