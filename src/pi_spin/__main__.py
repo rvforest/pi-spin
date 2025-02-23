@@ -7,7 +7,7 @@ from pi_spin.main import start_smart_bike
 # Setup Logging
 handlers = []
 if config["LOG_FILE"] is not None:
-    print(f'Added file handler for logging. File location: {config["LOG_FILE"]}')
+    print(f"Added file handler for logging. File location: {config['LOG_FILE']}")
     handlers.append(logging.FileHandler(config["LOG_FILE"]))
 if config["LOG_TO_CONSOLE"] is not None:
     print("Adding stream handler for logging.")

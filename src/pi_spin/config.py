@@ -1,4 +1,5 @@
 """Load configuration then overwrite default with any user values."""
+
 from pathlib import Path
 
 import yaml
