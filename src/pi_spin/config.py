@@ -1,27 +1,51 @@
 """Load configuration then overwrite default with any user values."""
 
+import importlib.resources
+import logging
 from pathlib import Path
+from typing import Optional
 
 import yaml
 
 
-def load_config():
+logger = logging.getLogger(__name__)
+
+
+def load_config(
+    config_name: str,
+    config_pkg: str = "pi_spin.conf",
+    user_conf_file: Optional[str] = None,
+) -> dict:
+    """Load a yaml configuration from package data.
+    If a user config location is specified then user config will be loaded
+    if it exists and the default config will be updated with values from user conf.
+
+    Args:
+        config_file (str): Config filename including .yaml extension.
+        config_pkg (str): Package where config is located. Defaults to pi_spi.conf
+        user_conf_file (Optional[str]): User config file path relative to user home.
+
+    Returns:
+        dict: Loaded config
+    """
     # Load default config
-    print("Loading default configuration")
-    config_filename = ".smart_bike_conf.yaml"
-    with open(config_filename, "r") as f:
-        c = yaml.safe_load(f)
+
+    config_file = importlib.resources.files(config_pkg).joinpath(config_name)
+    with config_file.open("r", encoding="utf-8") as f:
+        conf_dict = yaml.safe_load(f)
+        logger.info("Loaded default configuration")
 
     # Load user config values
+    if user_conf_file:
+        user_conf_path = Path.home().joinpath(user_conf_file)
     try:
-        user_config_path = Path.home().joinpath(config_filename)
+        user_config_path = Path.home().joinpath(user_conf_path)
         with open(user_config_path, "r") as f:
-            c.update(yaml.safe_load(f))
-        print("Loading user configuration")
+            user_conf_dict = yaml.safe_load(f)
+            logger.info("Loaded user configuration")
     except FileNotFoundError:
-        pass
+        user_conf_dict = {}
 
-    return c
+    conf_dict.update(user_conf_dict)
 
-
-config = load_config()
+    return conf_dict

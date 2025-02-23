@@ -1,0 +1,5 @@
+# Logging Setup
+log_level: INFO  # Use same level names as in Python logging package
+log_file: null
+log_to_console: True
+format: "'%(asctime)s - %(name)s - %(levelname)s - %(message)s'"

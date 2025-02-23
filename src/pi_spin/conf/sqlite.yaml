@@ -1,0 +1,5 @@
+# Sqlite database config
+---
+db_file: exercise.db
+dt_format: "%Y-%m-%d %H:%M:%f"
+check_same_thread: false
