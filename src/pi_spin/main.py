@@ -17,7 +17,8 @@ def start_smart_bike():
     raspberrypi = RaspberryPi.from_config()
     raspberrypi.setup()
     try:
-        _main_loop(db, raspberrypi)
+        while True:
+            _workout_loop(db, raspberrypi)
     except KeyboardInterrupt:
         logger.info("Program terminated")
     except Exception as e:
@@ -28,13 +29,12 @@ def start_smart_bike():
         db.cleanup()
 
 
-def _main_loop(db, raspberrypi):
-    while True:
-        raspberrypi.wait_for_start_button()
-        exercise = Workout(db, raspberrypi)
-        exercise.start_workout()
-        exercise.log_pedal_strokes()
-        exercise.end_workout()
+def _workout_loop(db, raspberrypi):
+    raspberrypi.wait_for_start_button()
+    exercise = Workout(db, raspberrypi)
+    exercise.start_workout()
+    exercise.log_pedal_strokes()
+    exercise.end_workout()
 
 
 def _setup_logging():
