@@ -29,7 +29,7 @@ class MockGPIO(MagicMock):
         return pin
 
     def add_event_detect(self, pin, edge_type, bouncetime, callback=None):
-        self.edge_detections[pin]= {
+        self.edge_detections[pin] = {
             "edge_type": edge_type,
             "bouncetime": bouncetime,
             "callback": callback,

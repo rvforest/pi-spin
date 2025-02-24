@@ -8,6 +8,7 @@ try:
     import RPi.GPIO as GPIO
 except RuntimeError:
     from unittest.mock import MagicMock
+
     GPIO = MagicMock()
 
 from pi_spin.config import load_config

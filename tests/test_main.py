@@ -33,7 +33,7 @@ def simulate_workout(mock_gpio, raspberrypi, n_pedals):
     # Wait for raspberrypi to be ready
     while raspberrypi.start_stop_button_pin not in mock_gpio.edge_detections:
         time.sleep(0.1)
-    
+
     # Press button to start workout, pedal twice, then press button to stop workout
     mock_gpio.simulate_edge(raspberrypi.start_stop_button_pin, mock_gpio.RISING)
     for _ in range(n_pedals):
@@ -65,4 +65,3 @@ def test_main(mock_db, mock_gpio):
     mock_db.add_workout_start.assert_called_once()
     assert mock_db.add_pedal_entry.call_count == expected_n_pedals
     mock_db.add_workout_end.assert_called_once()
-    
