@@ -38,14 +38,13 @@ def load_config(
     # Load user config values
     if user_conf_file:
         user_conf_path = Path.home().joinpath(user_conf_file)
-    try:
-        user_config_path = Path.home().joinpath(user_conf_path)
-        with open(user_config_path, "r") as f:
-            user_conf_dict = yaml.safe_load(f)
-            logger.info("Loaded user configuration")
-    except FileNotFoundError:
-        user_conf_dict = {}
-
-    conf_dict.update(user_conf_dict)
+        try:
+            user_config_path = Path.home().joinpath(user_conf_path)
+            with open(user_config_path, "r") as f:
+                user_conf_dict = yaml.safe_load(f)
+                logger.info("Loaded user configuration")
+        except FileNotFoundError:
+            user_conf_dict = {}
+        conf_dict.update(user_conf_dict)
 
     return conf_dict
