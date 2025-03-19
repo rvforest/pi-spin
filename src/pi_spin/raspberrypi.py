@@ -5,8 +5,8 @@ import time
 from typing import Iterable
 
 try:
-    import RPi.GPIO as GPIO
-except ModuleNotFoundError as e:
+    import RPi.GPIO as GPIO # type: ignore
+except ModuleNotFoundError:
     from unittest.mock import MagicMock
     GPIO = MagicMock()
 
