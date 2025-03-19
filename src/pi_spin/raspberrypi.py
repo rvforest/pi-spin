@@ -6,9 +6,8 @@ from typing import Iterable
 
 try:
     import RPi.GPIO as GPIO
-except RuntimeError:
+except ModuleNotFoundError as e:
     from unittest.mock import MagicMock
-
     GPIO = MagicMock()
 
 from pi_spin.config import load_config
