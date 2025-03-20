@@ -215,6 +215,10 @@ version = "0.1.0"
 source = { editable = "." }
 dependencies = [
     { name = "pyyaml" },
+]
+
+[package.optional-dependencies]
+pi = [
     { name = "rpi-gpio" },
 ]
 
@@ -230,8 +234,9 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "pyyaml", specifier = ">=6.0.2" },
-    { name = "rpi-gpio", specifier = ">=0.7.1" },
+    { name = "rpi-gpio", marker = "extra == 'pi'" },
 ]
+provides-extras = ["pi"]
 
 [package.metadata.requires-dev]
 dev = [
