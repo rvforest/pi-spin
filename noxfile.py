@@ -20,6 +20,15 @@ def check_format(session: nox.Session) -> None:
 
 
 @nox.session(venv_backend="uv")
+def format(session: nox.Session) -> None:
+    """
+    Run the unit and regular tests.
+    """
+    _install_dev_deps(session)
+    session.run("ruff", "format", *session.posargs)
+
+
+@nox.session(venv_backend="uv")
 def fix(session: nox.Session) -> None:
     """Fix formatting and linting"""
     _install_dev_deps(session)
