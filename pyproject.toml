@@ -14,7 +14,7 @@ dependencies = [
 ]
 
 [project.scripts]
-pi-spin = "pi_spin:main"
+pi-spin = "pi_spin.main:start_smart_bike"
 
 [project.optional-dependencies]
 pi = [
