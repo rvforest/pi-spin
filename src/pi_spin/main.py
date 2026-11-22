@@ -1,8 +1,8 @@
 import logging
 
 from pi_spin.config import load_config
-from pi_spin.raspberrypi import RaspberryPi
 from pi_spin.database import Database
+from pi_spin.raspberrypi import RaspberryPi
 from pi_spin.workout import Workout
 
 logger = logging.getLogger(__name__)
@@ -21,8 +21,8 @@ def start_smart_bike():
             _workout_loop(db, raspberrypi)
     except KeyboardInterrupt:
         logger.info("Program terminated")
-    except Exception as e:
-        logger.exception(e)
+    except Exception:
+        logger.exception("Unhandled exception")
     finally:
         logger.debug("Cleaning up")
         raspberrypi.cleanup()
@@ -51,4 +51,4 @@ def _setup_logging():
         handlers=handlers,
     )
 
-    logging.debug(config)
+    logger.debug(config)

@@ -3,10 +3,8 @@
 import importlib.resources
 import logging
 from pathlib import Path
-from typing import Optional
 
 import yaml
-
 
 logger = logging.getLogger(__name__)
 
@@ -14,7 +12,7 @@ logger = logging.getLogger(__name__)
 def load_config(
     config_name: str,
     config_pkg: str = "pi_spin.conf",
-    user_conf_file: Optional[str] = None,
+    user_conf_file: str | None = None,
 ) -> dict:
     """Load a yaml configuration from package data.
     If a user config location is specified then user config will be loaded
