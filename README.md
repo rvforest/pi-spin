@@ -21,9 +21,7 @@ Defaults come from `src/pi_spin/conf/raspberry_pi.yaml`:
 Event detection uses a `bouncetime` of 200 (passed through to RPi.GPIO) and
 polls every 0.1 seconds.
 
-The repository does not document the physical parts or how they are wired
-(sensor type, button connection, LED current-limiting resistor, and so on).
-TODO: add a wiring diagram once that hardware is written down.
+The repository does not document the sensor and button wiring.
 
 ## Raspberry Pi setup
 
