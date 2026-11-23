@@ -2,10 +2,10 @@
 
 import logging
 import time
-from typing import Iterable
+from collections.abc import Iterable
 
 try:
-    import RPi.GPIO as GPIO  # type: ignore
+    from RPi import GPIO  # type: ignore
 except ModuleNotFoundError:
     from unittest.mock import MagicMock
 

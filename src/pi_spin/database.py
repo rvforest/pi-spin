@@ -1,13 +1,13 @@
 import logging
 import sqlite3
-from typing import List, Tuple, Any, Optional
+from typing import Any
 
 from pi_spin.config import load_config
 
 logger = logging.getLogger(__name__)
 
-Data = List[Any]
-ColumnNames = List[str]
+Data = list[Any]
+ColumnNames = list[str]
 
 WORKOUT_PK_COL = 0
 WORKOUT_END_COL = 3
@@ -32,7 +32,7 @@ class Database:
         logger.debug(config)
         return cls(**config)
 
-    def execute_sql(self, sql: str) -> Tuple[List[Any], ColumnNames]:
+    def execute_sql(self, sql: str) -> tuple[list[Any], ColumnNames]:
         """Execute SQL statement then retrieve all results"""
         logger.debug(f"Executing: {sql}")
         c = self.conn.cursor()
@@ -105,7 +105,7 @@ class Database:
             f"REPLACE INTO WORKOUT (id, user, begin) SELECT id, user, begin FROM WORKOUT WHERE id={workout_id}"
         )
 
-    def get_last_workout(self) -> Optional[Data]:
+    def get_last_workout(self) -> Data | None:
         result, _ = self.execute_sql("SELECT * FROM WORKOUT ORDER BY id DESC LIMIT 1;")
         try:
             return result[0]
@@ -123,12 +123,12 @@ class Database:
                 self.add_workout_end(last_id)
         self.close()
 
-    def get_workout_list(self) -> Tuple[Data, ColumnNames]:
+    def get_workout_list(self) -> tuple[Data, ColumnNames]:
         return self.execute_sql("SELECT * FROM WORKOUT")
 
     def get_workout_log(
         self, workout_id, start_time_filter=None
-    ) -> Tuple[Data, ColumnNames]:
+    ) -> tuple[Data, ColumnNames]:
         if start_time_filter is not None:
             time_filter = f"AND pedal_time >= '{start_time_filter}'"
         else:

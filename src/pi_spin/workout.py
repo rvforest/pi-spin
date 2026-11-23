@@ -1,5 +1,5 @@
-from datetime import datetime
 import logging
+from datetime import datetime
 
 from pi_spin.database import Database
 from pi_spin.raspberrypi import RaspberryPi

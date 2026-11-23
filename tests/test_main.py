@@ -5,8 +5,8 @@ from unittest import mock
 import pytest
 
 import pi_spin.main
-from pi_spin.testing.mock_gpio import MockGPIO
 from pi_spin.raspberrypi import RaspberryPi
+from pi_spin.testing.mock_gpio import MockGPIO
 
 
 @pytest.fixture
